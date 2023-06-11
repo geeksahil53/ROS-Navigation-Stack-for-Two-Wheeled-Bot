@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="x" default="0" />
+    <arg name="y" default="0" />
+    <arg name="z" default="0.5" />
+
+    <param name="robot_description" command="$(find xacro)/xacro '$(find m2wr_description)/urdf/m2wr.xacro'" />
+
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+        <param name="use_gui" value="False" />
+    </node>
+
+    <!-- Combine joint values -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+    <node name="m2wr_spawn" pkg="gazebo_ros" type="spawn_model" output="screen" args="-urdf -param robot_description -model m2wr -x $(arg x) -y $(arg y) -z $(arg z)" />
+
+    <!-- Set the missing parameters for DiffDrive plugin -->
+    <node name="gazebo_ros_diff_drive" pkg="gazebo_ros" type="gazebo_ros_diff_drive" respawn="false" output="screen">
+        <param name="robot_description" command="$(find xacro)/xacro '$(find m2wr_description)/urdf/m2wr.xacro'" />
+        <param name="left_wheel_joint" value="joint_left_wheel" />
+        <param name="right_wheel_joint" value="joint_right_wheel" />
+        <param name="wheel_radius" value="0.1" />
+        <param name="wheel_separation" value="0.4" />
+        <param name="publish_rate" value="50.0" />
+        <param name="update_rate" value="50.0" />
+    </node>
+</launch>

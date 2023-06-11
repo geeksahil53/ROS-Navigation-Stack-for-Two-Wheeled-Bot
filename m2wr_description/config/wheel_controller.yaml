@@ -1,0 +1,6 @@
+wheel_joints:
+  joint_right_wheel:
+    joint_position: 0.0
+  joint_left_wheel:
+    joint_position: 0.0
+

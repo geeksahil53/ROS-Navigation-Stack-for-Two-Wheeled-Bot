@@ -1,0 +1,21 @@
+move_base:
+  controller_frequency: 10.0
+
+  recovery_behaviors:
+    - name: rotate_recovery
+      type: rotate_recovery/RotateRecovery
+
+  planner_patience: 5.0
+  controller_patience: 15.0
+  conservative_reset_dist: 3.0
+  planner_frequency: 5.0
+
+  oscillation_timeout: 10.0
+  oscillation_distance : 5.0
+  
+
+  recovery_behavior_enabled: true
+
+  clear_costmap_recovery:
+    enabled: true
+    reset_distance: 0.5
